@@ -2,6 +2,11 @@
 pipeline {
     agent any
 
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-21-amazon-corretto.x86_64'
+        PATH = "${JAVA_HOME}/bin:${PATH}"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -13,11 +18,8 @@ pipeline {
 
         stage('Java Check') {
             steps {
-                sh 'which java'
                 sh 'java -version'
-                sh 'which javac'
                 sh 'javac -version'
-                sh 'echo $JAVA_HOME'
                 sh 'mvn -version'
             }
         }
