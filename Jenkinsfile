@@ -33,11 +33,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
+                sh 
                 scp -o StrictHostKeyChecking=no \
                 target/*.war \
                 root@172.31.86.119:/mnt/apache-tomcat-10.1.56/webapps/gameoflife.war
-                '''
+                
             }
         }
     }
