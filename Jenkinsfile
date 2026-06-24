@@ -31,6 +31,29 @@ pipeline {
             }
         }
 
+        
+       stage ('UPLOAD-WAR-TO-S3') {
+            steps {
+                 sh '''
+                aws s3 cp /mnt/war/new-project/gameoflife-java21/target/gameoflife-java21-0.0.1-SNAPSHOT.war s3://war-gameoflife/
+                '''
+            }
+        }
+        
+        stage ('DEPLOY-ON-SLAVE') {
+            agent {
+                label {
+                    label 'slave-1'
+                }
+            }
+            steps {
+                 sh '''
+                aws s3 cp s3://war-gameoflife/gameoflife-java21-0.0.1-SNAPSHOT.war /mnt/apache-tomcat-10.1.55/webapps/
+                '''
+            }
+        }
+        
+
         stage('Deploy') {
             steps {
                 sh 
