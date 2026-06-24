@@ -2,7 +2,7 @@
 pipeline {
 agent any
 
-```
+
 stages {
 
     stage('Checkout') {
@@ -39,6 +39,6 @@ post {
         echo 'Build or deployment failed'
     }
 }
-```
+
 
 }
