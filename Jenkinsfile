@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh '''
                     aws s3 cp /mnt/Jenkins-Mavem/target/gameoflife-java21-0.0.1-SNAPSHOT.war \
-                    s3://war-gameoflife/
+                    s3://swethap973/
                 '''
             }
         }
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 sh '''
                     aws s3 cp \
-                    s3://war-gameoflife/gameoflife-java21-0.0.1-SNAPSHOT.war \
+                    s3://swethap973/gameoflife-java21-0.0.1-SNAPSHOT.war \
                     /mnt/apache-tomcat-10.1.55/webapps/gameoflife.war
                 '''
             }
