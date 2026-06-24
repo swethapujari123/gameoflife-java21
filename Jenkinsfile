@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh '''
                   aws s3 cp target/gameoflife-java21-0.0.1-SNAPSHOT.war s3://swethap973/
-                    s3://swethap973/
+                    
                 '''
             }
         }
