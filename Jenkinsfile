@@ -1,35 +1,32 @@
+
 pipeline {
-agent any
+    agent none
 
-```
-stages {
+    stages {
 
-    stage('Checkout') {
-        steps {
-            git branch: 'master',
-                url: 'https://github.com/swethapujari123/gameoflife-java21.git'
+        stage('Checkout & Build') {
+            agent { label 'master' }
+
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/swethapujari123/gameoflife-java21.git'
+
+                sh 'mvn clean package'
+
+                stash includes: 'target/*.war', name: 'warfile'
+            }
         }
-    }
 
-    stage('Build') {
-        steps {
-            sh 'mvn clean package'
-        }
-    }
+        stage('Deploy') {
+            agent { label 'jnlp-agent' }
 
-    stage('Deploy to Slave') {
-        steps {
-            sshagent(['slave-ssh-key']) {
+            steps {
+                unstash 'warfile'
+
                 sh '''
-                scp target/*.war jenkins@172.31.86.119:/mnt/tomcat/webapps/gameoflife.war
+                cp target/*.war /mnt/tomcat/webapps/gameoflife.war
                 '''
             }
         }
-    }
-}
-
-post {
-    success {
-        echo 'Deployment Successful'
     }
 }
