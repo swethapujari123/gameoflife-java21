@@ -5,7 +5,7 @@ pipeline {
     stages {
 
         stage('Checkout & Build') {
-            agent { label 'master' }
+            agent { label 'main' }
 
             steps {
                 git branch: 'main',
